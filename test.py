@@ -16,17 +16,17 @@ def prepare_image(file):
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
 
-preprocessed_image = prepare_image('German_Shepherd.jpg')
+preprocessed_image = prepare_image('PastorAlemao.jpg')
 predictions = mobile.predict(preprocessed_image)
 results = imagenet_utils.decode_predictions(predictions)
 print(results)
 
-preprocessed_image = prepare_image('24.jpg')
+preprocessed_image = prepare_image('PapaiNoel.jpg')
 predictions = mobile.predict(preprocessed_image)
 results = imagenet_utils.decode_predictions(predictions)
 print(results)
 
-preprocessed_image = prepare_image('48.jpg')
+preprocessed_image = prepare_image('Uno.jpg')
 predictions = mobile.predict(preprocessed_image)
 results = imagenet_utils.decode_predictions(predictions)
 print(results)
