@@ -13,13 +13,13 @@ from keras.applications.mobilenet import preprocess_input
 
 def prepare_image(file):
     img_path = ''
-    img = image.load_img(img_path + file, target_size=(128, 128))
+    img = image.load_img(img_path + file, target_size=(224, 224))
     img_array = image.img_to_array(img)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
 
 
-base_model=MobileNet(input_shape=(128, 128, 3), alpha = 0.75,depth_multiplier = 1, dropout = 0.001,include_top = False, weights = "imagenet", classes = 1000, backend=keras.backend, layers=keras.layers,models=keras.models,utils=keras.utils)
+base_model=MobileNet(input_shape=(224, 224, 3), alpha = 0.75,depth_multiplier = 1, dropout = 0.001,include_top = False, weights = "imagenet", classes = 1000, backend=keras.backend, layers=keras.layers,models=keras.models,utils=keras.utils)
 
 
 x=base_model.output
@@ -47,8 +47,8 @@ for layer in model.layers[86:]:
 
 train_datagen=ImageDataGenerator(preprocessing_function=preprocess_input) #included in our dependencies
 
-train_generator=train_datagen.flow_from_directory('images',
-                                                 target_size=(128,128),
+train_generator=train_datagen.flow_from_directory('PickImagesFromGoogle/Imagens',
+                                                 target_size=(224,224),
                                                  color_mode='rgb',
                                                  batch_size=32,
                                                  class_mode='categorical', shuffle=True)

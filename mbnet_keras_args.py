@@ -17,7 +17,7 @@ import os
 
 def prepare_image(file, show=False, predictions=None):
     img_path = ''
-    img = image.load_img(img_path + file, target_size=(128, 128))
+    img = image.load_img(img_path + file, target_size=(224, 224))
     img_array = image.img_to_array(img)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     if show:
@@ -38,7 +38,7 @@ parser.add_argument('--test', dest='test', default=False, action='store_true')
 parser.add_argument('--test_location', dest='test_location')
 args = parser.parse_args()
 	
-base_model=keras.applications.mobilenet.MobileNet(input_shape=(128, 128, 3), alpha = 0.75,depth_multiplier = 1, dropout = 0.001,include_top = False, weights = "imagenet", classes = 1000)
+base_model=keras.applications.mobilenet.MobileNet(input_shape=(224, 224, 3), alpha = 0.75,depth_multiplier = 1, dropout = 0.001,include_top = False, weights = "imagenet", classes = 1000)
 
 
 x=base_model.output
@@ -67,14 +67,14 @@ for layer in model.layers[86:]:
 train_datagen=ImageDataGenerator(preprocessing_function=preprocess_input, validation_split=0.1) #included in our dependencies
 
 train_generator=train_datagen.flow_from_directory(args.dataset_location,
-                                                 target_size=(128,128),
+                                                 target_size=(224,224),
                                                  color_mode='rgb',
                                                  batch_size=32,
                                                  class_mode='categorical', 
 						 shuffle=True,   							 							 subset='training')
 
 validation_generator=train_datagen.flow_from_directory(args.dataset_location,
-                                                 target_size=(128,128),
+                                                 target_size=(224,224),
                                                  color_mode='rgb',
                                                  batch_size=32,
                                                  class_mode='categorical', 
